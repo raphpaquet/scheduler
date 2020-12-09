@@ -82,9 +82,6 @@ export default function Application(props) {
 
   const setDay = day => setState({ ...state, day })
   // const setDays = days => setState(prev => ({ ...prev, days}))
-  
-  // const state = { day: "Monday", days:[]};
-  // setState({ ...state, day:"Tuesday" });
 
 
 
@@ -92,18 +89,17 @@ export default function Application(props) {
     Promise.all([
       axios.get('http://localhost:8001/api/days'),
       axios.get('http://localhost:8001/api/appointments'),
-      axios.get('http://localhost:8001/api/interviewers'),
+      axios.get('http://localhost:8001/api/interviewers')
     ])
     .then((all) => {
-      console.log(all)
-      setState(prev => ({ ...prev, days}))
-      setState(prev => ({ ...prev, appointments}))
-      // setState(prev => ({ ...prev, appointments}))
-      // setState(prev => ({ ...prev, days}))
+      //console.log(all)
+      const [days, appointments, interviewers] = all
+      setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}))
     })
   }, [])
 
 
+  console.log(state)
 
   return (
     <main className="layout">
