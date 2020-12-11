@@ -6,7 +6,7 @@ import Form from "components/Appointment/Form"
 
 import 'components/Appointment/styles.scss';
 import useVisualMode from 'hooks/useVisualMode';
-import {getInterviewersForDay} from 'helpers/selectors';
+import { getInterviewersForDay } from 'helpers/selectors';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW"
@@ -32,7 +32,7 @@ export default function Appointment(props) {
 
       {mode === CREATE &&  
         <Form
-          interviewers={[]}
+          interviewers={props.interviewers}
           onSave={("onSave")}
           onCancel={back}
         />
