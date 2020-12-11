@@ -16,10 +16,59 @@ export default function Application(props) {
     day:"Monday",
     days:[],
     appointments: {},
-    interviewers: {}
+    interviewers: {},
   })
 
+  const bookInterview = (id, interview) => {
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    const path = `http://localhost:8001/api/appointments/${id}`
+    return axios.put(path, {interview} )
+    .then(() => {setState({...state, appointments})})
+    .catch(error => console.log(error))
+  }
+
+  const cancelInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    const path = `http://localhost:8001/api/appointments/${id}`
+    return axios.delete(path)
+    .then(() => setState({...state, appointments}))
+    .catch(error => console.log(error))
+  }
+
+  const editInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: {...interviewers}
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    const path = `http://localhost:8001/api/appointments/${id}`
+    return axios.put(path)
+    .then(() => setState({...state, appointments}))
+    .catch(error => console.log(error))
+  }
+
   const appointments = getAppointmentsForDay(state, state.day);
+  console.log(appointments)
 
   const interviewers= getInterviewersForDay(state, state.day);
 
@@ -33,6 +82,8 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -84,5 +135,8 @@ export default function Application(props) {
     </main>
   );
 }
+
+
+
 
 
