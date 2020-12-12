@@ -1,0 +1,104 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios'
+
+
+export default function useApplicationData() {
+
+  // state
+  const [state, setState] = useState({
+    day:"Monday",
+    days:[],
+    appointments: {},
+    interviewers: {},
+  })
+  
+  // setDay
+  const setDay = day => setState({ ...state, day })
+
+
+  // SPOTS REMAINING 
+  const addSpot = (id) => {
+    const weekDays = [...state.days]
+    weekDays.map(day => {
+      for (let appointment of day.appointments) {
+        if (appointment === id) {
+          day.spots = +1;
+        }
+      }
+      return weekDays;
+    })
+  }
+
+  const removeSpot = (id) => {
+    const weekDays = [...state.days]
+    weekDays.map(day => {
+      for (let appointment of day.appointments) {
+        if (appointment === id) {
+          day.spots = -1;
+        }
+      }
+      return weekDays;
+    })
+  }
+  
+
+  // Get API request then setState
+  useEffect(() => {
+    Promise.all([
+      axios.get('http://localhost:8001/api/days'),
+      axios.get('http://localhost:8001/api/appointments'),
+      axios.get('http://localhost:8001/api/interviewers')
+    ])
+    .then((all) => {
+      const [days, appointments, interviewers] = all
+      setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}))
+    })
+    .catch(error => console.log(error))
+  }, [])
+
+  
+  // bookInterview
+  const bookInterview = (id, interview) => {
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    const path = `http://localhost:8001/api/appointments/${id}`
+    return axios.put(path, {interview} )
+    .then(() => {
+      removeSpot()
+      setState({...state, appointments})})
+    .catch(error => console.log(error))
+  }
+  
+  
+  // cancelInterview
+  const cancelInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+  
+    const path = `http://localhost:8001/api/appointments/${id}`
+    return axios.delete(path)
+    .then(() => {
+      addSpot()
+      setState({...state, appointments})})
+    .catch(error => console.log(error))
+  }
+
+  return { state, setState, setDay, bookInterview, cancelInterview }
+}
+
+
+
