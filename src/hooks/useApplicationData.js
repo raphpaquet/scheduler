@@ -15,33 +15,6 @@ export default function useApplicationData() {
   // setDay
   const setDay = day => setState({ ...state, day })
 
-
-  // SPOTS REMAINING 
-  const addSpot = (id) => {
-    const weekDays = [...state.days]
-    weekDays.map(day => {
-      for (let appointment of day.appointments) {
-        if (appointment === id) {
-          day.spots = +1;
-        }
-      }
-      return weekDays;
-    })
-  }
-
-  const removeSpot = (id) => {
-    const weekDays = [...state.days]
-    weekDays.map(day => {
-      for (let appointment of day.appointments) {
-        if (appointment === id) {
-          day.spots = -1;
-        }
-      }
-      return weekDays;
-    })
-  }
-  
-
   // Get API request then setState
   useEffect(() => {
     Promise.all([
@@ -68,13 +41,24 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    const removeSpot = () => {
+      const weekDays = [...state.days]
+      weekDays.map(day => {
+        for (let appointment of day.appointments) {
+          if (appointment === id) {
+            day.spots = day.spots - 1;
+          }
+        }
+        return weekDays;
+      })
+    }
     
     const path = `http://localhost:8001/api/appointments/${id}`
     return axios.put(path, {interview} )
     .then(() => {
-      removeSpot()
+      removeSpot(-1)
       setState({...state, appointments})})
-    .catch(error => console.log(error))
   }
   
   
@@ -88,13 +72,24 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    const addSpot = () => {
+      const weekDays = [...state.days]
+      weekDays.map(day => {
+        for (let appointment of day.appointments) {
+          if (appointment === id) {
+            day.spots = day.spots + 1;
+          }
+        }
+        return weekDays;
+      })
+    }
   
     const path = `http://localhost:8001/api/appointments/${id}`
     return axios.delete(path)
     .then(() => {
-      addSpot()
+      addSpot(1)
       setState({...state, appointments})})
-    .catch(error => console.log(error))
   }
 
   return { state, setState, setDay, bookInterview, cancelInterview }
