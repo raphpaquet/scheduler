@@ -11,7 +11,7 @@ export default function InterviewerList(props) {
   const { interviewers } = props;
 
   InterviewerList.propTypes = {
-    interviewers: PropTypes.string.isRequired
+    interviewers: PropTypes.array.isRequired
   };
 
   const interviewerList = interviewers.map((interviewer) => {
