@@ -24,7 +24,11 @@ export default function useApplicationData() {
     ])
     .then((all) => {
       const [days, appointments, interviewers] = all
-      setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}))
+      setState(prev => (
+        { ...prev, 
+          days: days.data, 
+          appointments: appointments.data, 
+          interviewers: interviewers.data}))
     })
     .catch(error => console.log(error))
   }, [])

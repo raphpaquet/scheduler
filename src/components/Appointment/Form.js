@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../Button'
 import InterviewerList from '../InterviewerList'
-import PropTypes from 'prop-types';
 
 
 export default function Form(props) {
