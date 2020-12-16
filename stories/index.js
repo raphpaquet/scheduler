@@ -5,19 +5,19 @@ import { action } from "@storybook/addon-actions";
 
 import "index.scss";
 
-import Button from "components/Button";
-import DayListItem from "components/DayListItem";
-import DayList from "components/DayList";
-import InterviewerListItem from "components/InterviewerListItem";
-import InterviewerList from "components/InterviewerList";
-import Appointment from "components/Appointment";
-import Header from "components/Appointment/Header";
-import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
-import Confirm from "components/Appointment/Confirm";
-import Status from "components/Appointment/Status";
-import Error from "components/Appointment/Error";
 import Form from "components/Appointment/Form";
+import Error from "components/Appointment/Error";
+import Empty from "components/Appointment/Empty";
+import Header from "components/Appointment/Header";
+import Button from "components/Button";
+import Status from "components/Appointment/Status";
+import DayList from "components/DayList";
+import Confirm from "components/Appointment/Confirm";
+import Appointment from "components/Appointment";
+import DayListItem from "components/DayListItem";
+import InterviewerList from "components/InterviewerList";
+import InterviewerListItem from "components/InterviewerListItem";
 
 
 storiesOf("Button", module)
@@ -36,7 +36,6 @@ storiesOf("Button", module)
     </Button>
   ));
 
-
 storiesOf("DayListItem", module)
     .addParameters({
       backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -47,7 +46,6 @@ storiesOf("DayListItem", module)
     .add("Clickable", () => (
     <DayListItem name="Tuesday" setDay={action("setDay")} spots={5} />
     ));
-
 
 const days = [
   {
@@ -77,8 +75,6 @@ storiesOf("DayList", module)
   .add("Tuesday", () => (
     <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
   ));
-
-
 
 const interviewer = {
   id: 1,
@@ -114,7 +110,6 @@ storiesOf("InterviewerListItem", module)
     />
   ));
 
-
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
@@ -140,7 +135,6 @@ storiesOf("InterviewerList", module)
       setInterviewer={action("setInterviewer")}
     />
   ));
-
 
   storiesOf("Appointment", module)
   .addParameters({
