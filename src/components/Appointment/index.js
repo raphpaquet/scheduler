@@ -64,7 +64,6 @@ export default function Appointment(props) {
       .catch(error => transition(ERROR_SAVE, true))
   }
 
-  
   // TRANSITION TO CONFIRM
     function confirm() {
       transition(CONFIRM)
@@ -143,7 +142,6 @@ export default function Appointment(props) {
           onClose={onShow}
         />
       }
-
     </article>
   )
 }
