@@ -33,7 +33,6 @@ export default function useApplicationData() {
     .catch(error => console.log(error))
   }, [])
 
-  
   // bookInterview
   const bookInterview = (id, interview) => {
     const appointment = {
@@ -63,7 +62,6 @@ export default function useApplicationData() {
       removeSpot(-1)
       setState({...state, appointments})})
   }
-  
   
   // cancelInterview
   const cancelInterview = (id, interview) => {
@@ -95,6 +93,7 @@ export default function useApplicationData() {
       setState({...state, appointments})})
   }
 
+  // Edit interview
   const editInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
