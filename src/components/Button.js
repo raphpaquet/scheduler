@@ -1,6 +1,6 @@
 import React from "react";
 import "components/Button.scss";
-import classNames from "classnames/bind"
+import classNames from "classnames/bind";
 
 
 
@@ -20,4 +20,4 @@ export default function Button(props) {
        {props.children}
      </button>
    );
- }
+ };

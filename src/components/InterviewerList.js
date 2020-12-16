@@ -5,7 +5,6 @@ import 'components/InterviewerList.scss'
 import InterviewerListItem from 'components/InterviewerListItem';
 
 
-
 export default function InterviewerList(props) {
   
   const { interviewers } = props;
@@ -24,7 +23,7 @@ export default function InterviewerList(props) {
       setInterviewer={(event) => console.log("interviewer clicked") || props.setInterviewer(interviewer.id)} 
     />
     );
-  })
+  });
 
   return (
     <section className="interviewers">
@@ -32,5 +31,5 @@ export default function InterviewerList(props) {
       <ul className="interviewers__list">{interviewerList}</ul>
     </section>
   )
-}
+};
 

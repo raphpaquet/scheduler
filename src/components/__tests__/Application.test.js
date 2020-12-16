@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios'
+import axios from 'axios';
 
 import { 
   render, 
@@ -81,7 +81,7 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    // expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
   
 
@@ -108,7 +108,7 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-   // expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+   expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
   
   // ERROR HANDLING TESTING
@@ -134,7 +134,6 @@ describe("Application", () => {
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     await waitForElement(() => getByText(appointment, "Error"))
-
   });
 
   it("shows the delete error when failing to delete an existing appointment", async() => {
@@ -158,6 +157,6 @@ describe("Application", () => {
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
 
     await waitForElement(() => getByText(appointment, "Error"));
-  })
-})
+  });
+});
 

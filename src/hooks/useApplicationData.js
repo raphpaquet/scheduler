@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 
 export default function useApplicationData() {
@@ -13,7 +13,7 @@ export default function useApplicationData() {
   })
   
   // setDay
-  const setDay = day => setState({ ...state, day })
+  const setDay = day => setState({ ...state, day });
 
   // Get API request then setState
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function useApplicationData() {
       axios.get('http://localhost:8001/api/interviewers')
     ])
     .then((all) => {
-      const [days, appointments, interviewers] = all
+      const [days, appointments, interviewers] = all;
       setState(prev => (
         { ...prev, 
           days: days.data, 
@@ -56,7 +56,7 @@ export default function useApplicationData() {
       })
     }
     
-    const path = `http://localhost:8001/api/appointments/${id}`
+    const path = `http://localhost:8001/api/appointments/${id}`;
     return axios.put(path, {interview} )
     .then(() => {
       removeSpot(-1)
@@ -86,7 +86,7 @@ export default function useApplicationData() {
       })
     }
   
-    const path = `http://localhost:8001/api/appointments/${id}`
+    const path = `http://localhost:8001/api/appointments/${id}`;
     return axios.delete(path)
     .then(() => {
       addSpot(1)
@@ -104,7 +104,7 @@ export default function useApplicationData() {
       [id]: appointment
     };
     
-    const path = `http://localhost:8001/api/appointments/${id}`
+    const path = `http://localhost:8001/api/appointments/${id}`;
     return axios.put(path, {interview} )
     .then(() => {
       setState({...state, appointments})})

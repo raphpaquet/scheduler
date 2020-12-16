@@ -76,10 +76,16 @@ export default function Appointment(props) {
     function onShow() {
       transition(SHOW)
     }
-  //TRANSITION TO CREATE
-    function onCreate() {
-    transition(CREATE)
-  }
+  //TRANSITION CANCEL
+    function cancel() {
+      if(props.interview === null) {
+        transition(back)
+      } else if (props.interview.student) {
+        transition(EDIT)
+      } else {
+        transition(EMPTY)
+      }
+    }
 
   return (
     <article className="appointment" data-testid="appointment">
@@ -106,7 +112,7 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           onSave={(save)}
-          onCancel={back}
+          onCancel={cancel}
         />
       }
 
@@ -116,7 +122,7 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}
           onSave={edit}
-          onCancel={back}
+          onCancel={onShow}
         />
       }
 
@@ -132,14 +138,14 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE && (
         <Error
           message="Could not save appointment"
-          onClose={onCreate}
+          onClose={cancel}
         />
       )}
 
       {mode === ERROR_DELETE && 
         <Error
           message="Could not delete appointment"
-          onClose={onShow}
+          onClose={back}
         />
       }
     </article>
